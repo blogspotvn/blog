@@ -1,1 +1,18 @@
+<div class="dropzone">
+<div class="infoimg">
+<script src="https://firebasestorage.googleapis.com/v0/b/huydc-090288.appspot.com/o/Images%20Upload%2Fimgur.js?alt=media&amp;token=0fa4ea9f-1988-4a4c-9184-76682c1d21eb" type="text/javascript"></script>
+    <script src="https://firebasestorage.googleapis.com/v0/b/huydc-090288.appspot.com/o/Images%20Upload%2Fupload.js?alt=media&amp;token=474a35a1-d43e-4026-a899-c3cd9da9f9a3" type="text/javascript"></script>
 
+<style>
+body.loading .loading-modal{display:block}
+.dropzone{border:2px dashed #999;border-radius:10px;position:relative;margin:0 auto;clear:both;}
+.infoimg{margin:0 auto;margin-top:20px;margin-bottom:20px}
+.dropzone p{margin:0;text-align:center;width:100%;font-weight:bold;color:#999}
+.input{height:100%;left:0;outline:0;opacity:0;position:absolute;top:0;width:100%;cursor:-webkit-zoom-in}
+.status{border-radius:5px;text-align:center;margin-left:auto;margin-right:auto}
+.image-url{width:calc(100% - 10px);padding:5px;border:1px solid #999;border-radius:5px;color:#999}
+.linkimg{margin:20px 0}
+.dropzone.dropzone-dragging{border-color:#000}
+.loading-modal{background-color:rgba(255,255,255,.8);display:none;position:fixed;z-index:1000;top:0;left:0;height:100%;width:100%}
+.loading-table{margin-left:auto;margin-right:auto;margin-top:15%;margin-bottom:15%}
+</style>
