@@ -52,6 +52,23 @@
             font-size: 16px;
             resize: none;
         }
+        .alert {
+            opacity: 0;
+            transition: opacity 0.6s;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .alert.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -65,14 +82,14 @@
         <p>Generated Link (click to copy):</p>
         <textarea id="generatedLink" onclick="copyToClipboard()"></textarea>
     </div>
+    <div class="alert" id="alertBox">Đã copy!</div>
 
     <script>
         function generateLink() {
             var url = document.getElementById("url").value;
             var title = document.getElementById("title").value;
             var linkHTML = '<a href="' + url + '" rel="nofollow">' + title + '</a>';
-            var generatedLinkElement = document.getElementById("generatedLink");
-            generatedLinkElement.innerText = linkHTML;
+            document.getElementById("generatedLink").innerText = linkHTML;
         }
 
         function copyToClipboard() {
@@ -80,8 +97,11 @@
             copyText.select();
             document.execCommand("copy");
 
-            // Hiển thị thông báo
-            alert("Đã copy: " + copyText.value);
+            var alertBox = document.getElementById("alertBox");
+            alertBox.classList.add("show");
+            setTimeout(function() {
+                alertBox.classList.remove("show");
+            }, 3000);
         }
     </script>
 </body>
