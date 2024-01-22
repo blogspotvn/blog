@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Generator Tool For Comment</title>
+    <title>Link Generator Tool For Comment - BlogspotVN.Net</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,11 +73,10 @@
     <div class="container">
         <h2>Link Generator Tool</h2>
         <label for="url">URL:</label><br>
-        <input type="text" id="url" name="url"><br>
-        <label for="title">Link Title:</label><br>
+        <input type="text" id="url" name="url" autocomplete="off"><br>
+        <label for="title">Tiêu đề link:</label><br>
         <input type="text" id="title" name="title"><br>
         <button onclick="generateLink()">Tạo Link</button>
-        <p>Generated Link (click to copy):</p>
         <div class="alert" id="alertBox">Đã copy!</div>
         <textarea id="generatedLink" onclick="copyToClipboard()"></textarea>
     </div>
