@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="search-container">
-    <h1>Tìm kiếm bài viết nâng cao</h1>
+    <h1>Tìm kiếm bài viết nâng cao a</h1>
     <div class="search-options">
         <div class="filter-label">
             Lọc theo nhãn
@@ -153,13 +153,13 @@
                         }
                         skeleton += '<div style="clear: both;"></div></div>';
                     }
-                    $result_container.html(skeleton);
+                    $result_container.append(skeleton);
 
                     // Lưu tổng số kết quả tìm kiếm
                     totalResults = parseInt(json.feed.openSearch$totalResults.$t);
 
                     // Kiểm tra nếu số bài viết trả về đã đủ hoặc ít hơn maxResults thì ẩn nút "Load more"
-                    if (entry.length < maxResults) {
+                    if ((pageToken * maxResults) >= totalResults) {
                         $loadMoreContainer.hide();
                     } else {
                         $loadMoreContainer.show();
