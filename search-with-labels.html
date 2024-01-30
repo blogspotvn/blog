@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tìm kiếm bài viết nâng cao</title>
-    <!-- Thêm thư viện jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-<div class="search-container">
-    <h1>Tìm kiếm bài viết nâng cao</h1>
-    <div class="search-options">
-        <div class="filter-label">
-            Lọc theo nhãn
-            <select id="label-select">
-                <option value="">Chọn nhãn</option>
-            </select>
-        </div>
-        <div class="search-keyword">
-            Tìm bài viết với từ khóa
-            <form action="/search" id="ajax-search-form">
-                <input aria-label="Tìm kiếm trong blog này" autocomplete="off" class="inputsearch left text" id="search-input-blogspotvn" name="q" type="text" value=""/>
-            </form>
-        </div>
-        <div class="sort-order">
-            Sắp xếp theo:
-            <select id="sort-order">
-                <option value="newest">Mới nhất</option>
-                <option value="oldest">Cũ nhất</option>
-            </select>
-        </div>
-    </div>
-</div>
-<div class="post-container">
-    <div id="search-result"></div>
-    <div id="load-more-container">
-        <button id="load-more-button">Load more</button>
-    </div>
-</div>
-
-<script>$(document).ready(function() {
+$(document).ready(function() {
     var pageToken = 1; // Trang hiện tại
     var maxResults = 10; // Số lượng bài viết mỗi lượt
     var totalResults = 0; // Tổng số kết quả tìm kiếm
