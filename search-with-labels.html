@@ -131,7 +131,7 @@
                             var title = entry[i].title.$t;
                             var publishedDate = entry[i].published.$t.split('T')[0];
                             var formattedDate = formatDate(publishedDate);
-                            var snippet = entry[i].summary.$t.substring(0, ) + '...';
+                            var snippet = entry[i].summary.$t.substring(0,200) + '...';
                             var thumbnailUrl = entry[i].media$thumbnail ? entry[i].media$thumbnail.url : '';
 
                             skeleton += '<div class="post-search">';
