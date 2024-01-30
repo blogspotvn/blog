@@ -8,11 +8,6 @@
 <body>
 <div class="search-container">
     <h1>Tìm kiếm bài viết nâng cao</h1>
-    <div class="separator" style="clear: both;">
-        <a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEieLMqjoxKUbkPXg1WNVlvQrC9LI4smjfLc-JLBhGMbY9k35icjII3zFdke6-RaGBNpGetFvuR9gvJIbuEGy_zlJwencTfnKaZQTjKHZNT-KVbxs6CqEYY0PE5R8glmPcuPJ_FA2K9N6_iRcXb9y7OGYyB2csuC306858-ugLxMQumufdUzWlCPDYv3lD8K/s1600/C8D36947-CEE9-4B96-982E-66344C14D86B.png" style="display: block; padding: 1em 0; text-align: center; ">
-            <img alt="" border="0" data-original-height="500" data-original-width="1500" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEieLMqjoxKUbkPXg1WNVlvQrC9LI4smjfLc-JLBhGMbY9k35icjII3zFdke6-RaGBNpGetFvuR9gvJIbuEGy_zlJwencTfnKaZQTjKHZNT-KVbxs6CqEYY0PE5R8glmPcuPJ_FA2K9N6_iRcXb9y7OGYyB2csuC306858-ugLxMQumufdUzWlCPDYv3lD8K/s1600/C8D36947-CEE9-4B96-982E-66344C14D86B.png"/>
-        </a>
-    </div>
     <div class="search-options">
         <div class="filter-label">
             Lọc theo nhãn
@@ -35,15 +30,19 @@
         </div>
     </div>
 </div>
-<div id="search-result"></div>
-<div id="load-more-container">
-    <button id="load-more-button">Load more</button>
+<div class="post-container">
+    <div id="search-result"></div>
+    <div id="load-more-container">
+        <button id="load-more-button">Load more</button>
+    </div>
 </div>
 
 <script>
 $(document).ready(function() {
     var pageToken = 1; // Trang hiện tại
     var maxResults = 10; // Số lượng bài viết mỗi trang
+    var $result_container = $('#search-result');
+    var $loadMoreContainer = $('#load-more-container');
 
     function loadLabels() {
         $.ajax({
@@ -70,13 +69,11 @@ $(document).ready(function() {
         });
     }
 
-    loadLabels();
+loadLabels();
 
     var $form = $('#ajax-search-form'),
         $input = $form.find(':text'),
         $labelSelect = $('#label-select');
-
-    var $result_container = $('#search-result');
 
     $input.on("input", function() {
         pageToken = 1; // Reset trang khi thay đổi từ khóa
@@ -116,7 +113,7 @@ $(document).ready(function() {
             searchURL += '&q=' + encodeURIComponent(keyword);
         }
 
-        $result_container.show().html('Loading...');
+        $result_container.html('Loading...');
 
         $.ajax({
             url: searchURL,
@@ -135,14 +132,6 @@ $(document).ready(function() {
                             return new Date(a.published.$t) - new Date(b.published.$t);
                         });
                     }
-                    skeleton = '<div class="kq-search">Kết quả tìm kiếm';
-                    if (keyword !== "") {
-                        skeleton += ' cho từ khoá <span class="red">“' + keyword + '”</span>';
-                    }
-                    if (selectedLabel && selectedLabel !== "") {
-                        skeleton += ' tại nhãn <span class="red">"' + selectedLabel + '"</span>';
-                    }
-                    skeleton += ' (' + entry.length + ' kết quả)<a class="close" href="javascript:void(0);">×</a></div><div>';
                     for (var i = 0; i < entry.length; i++) {
                         for (var j = 0; j < entry[i].link.length; j++) {
                             if (entry[i].link[j].rel == "alternate") {
@@ -166,18 +155,17 @@ $(document).ready(function() {
                         }
                         skeleton += '<div style="clear: both;"></div></div>';
                     }
-                    skeleton += '</div>';
-                    $result_container.html(skeleton);
+                    $result_container.append(skeleton);
 
                     // Kiểm tra nếu số bài viết trả về là ít hơn maxResults thì ẩn nút "Load more"
                     if (entry.length < maxResults) {
-                        $('#load-more-container').hide();
+                        $loadMoreContainer.hide();
                     } else {
-                        $('#load-more-container').show();
+                        $loadMoreContainer.show();
                     }
                 } else {
                     $result_container.html('');
-                    $('#load-more-container').hide(); // Ẩn nút "Load more" khi không có kết quả
+                    $loadMoreContainer.hide(); // Ẩn nút "Load more" khi không có kết quả
                 }
             },
             error: function() {
@@ -200,7 +188,124 @@ $(document).ready(function() {
 
         return day + '.' + month + '.' + year;
     }
+
+    // Khởi đầu, tải dữ liệu ban đầu
+    performSearch();
 });
 </script>
+<style>
+h1 {text-align: center;} 
+#search-result {
+  clear: both;
+}
+.post-search {
+  padding: 10px;
+  margin: 10px 0;
+  border-bottom: 1px solid #dddddd;
+}
+.thumnail-search {
+  float: left;
+  margin: 5px 20px 0 0;
+  width: 72px;
+  overflow: hidden;
+}
+.thumnail-search img {
+  height: 72px;
+  width: 72px;
+  border-radius: 5px;
+}
+.post-time-search {
+  float: left;
+  margin-right: 15px;
+  width: 220px;
+}
+.snipet-search {
+  float: left;
+  width: 340px;
+}
+.post-time-search h2 {
+  font-size: 15px;
+  line-height: 1.2em;
+  margin: 0 0 10px 0;
+  color: #12537f;
+  display: block;
+  font-weight: 700;
+  padding: 0;
+}
+.search-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.container select option {
+    min-height: 1.4em;
+    font-weight: 500;
+}  
+  
+.filter-label, .search-keyword, .sort-order {
+  flex: 1;
+}
+.search-keyword .inputsearch {
+  width: 100%;height: 40px;
+}
+.container select,.container input {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    outline: 0;
+    color: #333;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.container select {
+    text-transform: none;
+}
+.kq-search {
+  font-size: 15px;
+}
+#search-result {
+  margin-top: 20px;
+}
+a.close {
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  color: #ca252b;
+}
+.post .category, .comments {
+  display: none;
+}
+  
+#label-select::-webkit-scrollbar {
+    width: 5px;
+    background-color: #fff; 
+}
+
+#label-select::-webkit-scrollbar-thumb {
+    border-radius: 10px; 
+}
+
+#label-select::-webkit-scrollbar-thumb:hover {
+    background-color: #ddd; 
+}
+  
+.dark #label-select::-webkit-scrollbar-thumb:hover {
+    background-color: #000; 
+}
+.post {
+    min-height: calc(80vh - 0px);
+}
+  
+@media screen and (max-width: 1094px) {
+.filter-label, .search-keyword, .sort-order {
+    flex: unset;
+    width: 100%;
+}
+</style>
 </body>
 </html>
