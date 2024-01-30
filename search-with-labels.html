@@ -159,7 +159,7 @@
                     totalResults = parseInt(json.feed.openSearch$totalResults.$t);
 
                     // Kiểm tra nếu số bài viết trả về đã đủ hoặc ít hơn maxResults thì ẩn nút "Load more"
-                    if (pageToken * maxResults >= totalResults) {
+                    if (entry.length < maxResults) {
                         $loadMoreContainer.hide();
                     } else {
                         $loadMoreContainer.show();
