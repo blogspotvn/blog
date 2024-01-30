@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="search-container">
-    <h1>Tìm kiếm bài viết nâng cao e</h1>
+    <h1>Tìm kiếm bài viết nâng cao</h1>
     <div class="search-options">
         <div class="filter-label">
             Lọc theo nhãn
@@ -32,7 +32,7 @@
 </div>
 <div class="post-container">
     <div id="search-result"></div>
-    <div id="load-more-container" style="display: none;">
+    <div id="load-more-container">
         <button id="load-more-button">Load more</button>
     </div>
 </div>
@@ -44,7 +44,7 @@ $(document).ready(function() {
     var totalResults = 0; // Tổng số kết quả tìm kiếm
     var $result_container = $('#search-result');
     var $loadMoreContainer = $('#load-more-container');
-
+    
     function loadLabels() {
         $.ajax({
             url: 'https://draft.blogger.com/feeds/4739357338957377707/posts/summary?alt=json-in-script&max-results=500',
@@ -154,22 +154,10 @@ $(document).ready(function() {
                         }
                         skeleton += '<div style="clear: both;"></div></div>';
                     }
-                    $result_container.html(''); // Xóa kết quả trước đó
-                    $result_container.append(skeleton);
+                    $result_container.html(skeleton);
 
                     // Lưu tổng số kết quả tìm kiếm
                     totalResults = parseInt(json.feed.openSearch$totalResults.$t);
-
-                    // Hiển thị thông báo kết quả ban đầu
-                    var initialResultMessage = '<div class="kq-search">Kết quả tìm kiếm';
-                    if (keyword !== "") {
-                        initialResultMessage += ' cho từ khoá <span class="red">“' + keyword + '”</span>';
-                    }
-                    if (selectedLabel && selectedLabel !== "") {
-                        initialResultMessage += ' tại nhãn <span class="red">"' + selectedLabel + '"</span>';
-                    }
-                    initialResultMessage += ' (' + entry.length + ' kết quả)<a class="close" href="javascript:void(0);">×</a></div><div>';
-                    $result_container.prepend(initialResultMessage);
 
                     // Kiểm tra nếu số bài viết trả về đã đủ hoặc ít hơn maxResults thì ẩn nút "Load more"
                     if ((pageToken * maxResults) >= totalResults) {
@@ -183,7 +171,7 @@ $(document).ready(function() {
                 }
             },
             error: function() {
-                $result_container.html('<div class="kq-search">Kết quả tìm kiếm<a class="close" href="javascript:void(0);">×</a></div><strong>Lỗi khi tải dữ liệu.</strong>');
+                $result_container.html('<div class="kq-search">Kết quả tìm kiếm</div><strong>Lỗi khi tải dữ liệu.</strong>');
             }
         });
     }
