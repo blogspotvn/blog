@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="search-container">
-    <h1>Tìm kiếm bài viết nâng cao c</h1>
+    <h1>Tìm kiếm bài viết nâng cao e</h1>
     <div class="search-options">
         <div class="filter-label">
             Lọc theo nhãn
@@ -154,10 +154,22 @@ $(document).ready(function() {
                         }
                         skeleton += '<div style="clear: both;"></div></div>';
                     }
+                    $result_container.html(''); // Xóa kết quả trước đó
                     $result_container.append(skeleton);
 
                     // Lưu tổng số kết quả tìm kiếm
                     totalResults = parseInt(json.feed.openSearch$totalResults.$t);
+
+                    // Hiển thị thông báo kết quả ban đầu
+                    var initialResultMessage = '<div class="kq-search">Kết quả tìm kiếm';
+                    if (keyword !== "") {
+                        initialResultMessage += ' cho từ khoá <span class="red">“' + keyword + '”</span>';
+                    }
+                    if (selectedLabel && selectedLabel !== "") {
+                        initialResultMessage += ' tại nhãn <span class="red">"' + selectedLabel + '"</span>';
+                    }
+                    initialResultMessage += ' (' + entry.length + ' kết quả)<a class="close" href="javascript:void(0);">×</a></div><div>';
+                    $result_container.prepend(initialResultMessage);
 
                     // Kiểm tra nếu số bài viết trả về đã đủ hoặc ít hơn maxResults thì ẩn nút "Load more"
                     if ((pageToken * maxResults) >= totalResults) {
