@@ -37,13 +37,13 @@
     </div>
 </div>
 
-<script>
-$(document).ready(function() {
+<script>$(document).ready(function() {
     var pageToken = 1; // Trang hiện tại
-    var maxResults = 10; // Số lượng bài viết mỗi trang
+    var maxResults = 10; // Số lượng bài viết mỗi lượt
+    var totalResults = 0; // Tổng số kết quả tìm kiếm
     var $result_container = $('#search-result');
     var $loadMoreContainer = $('#load-more-container');
-
+    
     function loadLabels() {
         $.ajax({
             url: 'https://draft.blogger.com/feeds/4739357338957377707/posts/summary?alt=json-in-script&max-results=500',
@@ -113,8 +113,6 @@ $(document).ready(function() {
             searchURL += '&q=' + encodeURIComponent(keyword);
         }
 
-        $result_container.html('Loading...');
-
         $.ajax({
             url: searchURL,
             type: 'get',
@@ -155,10 +153,13 @@ $(document).ready(function() {
                         }
                         skeleton += '<div style="clear: both;"></div></div>';
                     }
-                    $result_container.append(skeleton);
+                    $result_container.html(skeleton);
 
-                    // Kiểm tra nếu số bài viết trả về là ít hơn maxResults thì ẩn nút "Load more"
-                    if (entry.length < maxResults) {
+                    // Lưu tổng số kết quả tìm kiếm
+                    totalResults = parseInt(json.feed.openSearch$totalResults.$t);
+
+                    // Kiểm tra nếu số bài viết trả về đã đủ hoặc ít hơn maxResults thì ẩn nút "Load more"
+                    if (pageToken * maxResults >= totalResults) {
                         $loadMoreContainer.hide();
                     } else {
                         $loadMoreContainer.show();
