@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="search-container">
-    <h1>Tìm kiếm bài viết nâng cao a</h1>
+    <h1>Tìm kiếm bài viết nâng cao b</h1>
     <div class="search-options">
         <div class="filter-label">
             Lọc theo nhãn
@@ -59,7 +59,11 @@
 
                     $labelSelect.change(function() {
                         pageToken = 1; // Reset trang khi thay đổi nhãn
-                        performSearch();
+                        performSearch(if (entry.length + (pageToken - 1) * maxResults >= totalResults) {
+    $loadMoreContainer.hide();
+} else {
+    $loadMoreContainer.show();
+});
                     });
                 }
             },
