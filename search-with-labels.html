@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="search-container">
-    <h1>Tìm kiếm bài viết nâng cao b</h1>
+    <h1>Tìm kiếm bài viết nâng cao c</h1>
     <div class="search-options">
         <div class="filter-label">
             Lọc theo nhãn
@@ -32,18 +32,19 @@
 </div>
 <div class="post-container">
     <div id="search-result"></div>
-    <div id="load-more-container">
+    <div id="load-more-container" style="display: none;">
         <button id="load-more-button">Load more</button>
     </div>
 </div>
 
-<script>$(document).ready(function() {
+<script>
+$(document).ready(function() {
     var pageToken = 1; // Trang hiện tại
     var maxResults = 10; // Số lượng bài viết mỗi lượt
     var totalResults = 0; // Tổng số kết quả tìm kiếm
     var $result_container = $('#search-result');
     var $loadMoreContainer = $('#load-more-container');
-    
+
     function loadLabels() {
         $.ajax({
             url: 'https://draft.blogger.com/feeds/4739357338957377707/posts/summary?alt=json-in-script&max-results=500',
@@ -59,11 +60,7 @@
 
                     $labelSelect.change(function() {
                         pageToken = 1; // Reset trang khi thay đổi nhãn
-                        performSearch(if (entry.length + (pageToken - 1) * maxResults >= totalResults) {
-    $loadMoreContainer.hide();
-} else {
-    $loadMoreContainer.show();
-});
+                        performSearch();
                     });
                 }
             },
